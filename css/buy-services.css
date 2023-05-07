@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 896px;
+}
+
+body, input, textarea, button {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+
+.header-container {
+  display: flex;
+
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+.header-container a {
+  text-decoration: none;
+  color: #000080;
+  font-weight: 500;
+}
+
+.header-container h1 {
+  margin-left: 5.5rem;
+}
+
+/* BUY SERVICES IMG */
+
+.buy-services-container {
+  margin-top: 40px;
+}
+
+.buy-services-container img {
+  width: 100%;
+  max-height: 300px;
+  margin-bottom: -10px;
+}
+
+/* BUY SERVICES BTN */
+
+.price-btn-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 4.375rem;
+}
+
+.basic-btn-container, .standard-btn-container, .premium-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.basic-btn-container button, .standard-btn-container button, .premium-btn-container button {
+  width: 100%;
+  background-color: #000080;
+  color: #fff;
+  border: none;
+}
+
+.box-shadow {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.75);
+}
+
+.service-type-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+}
+
+.service-type-container p{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.display-description {
+  display: flex;
+  justify-content: center;
+  background-color: #FFD700;
+  width: 100%;
+  min-height: 40px;
+}
+
+.display-description p{
+  min-height: 40px;
+  text-align: center;
+  padding: 20px;
+}
+
+.buy-container button {
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: #000080;
+}
