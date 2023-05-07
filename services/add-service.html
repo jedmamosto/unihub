@@ -29,11 +29,11 @@
   <section class="info-container">
     <div class="name-container info">
       <h3>Service Name</h3>
-      <input type="text" placeholder="Enter product name...">
+      <input type="text" id="service-name-input" placeholder="Enter product name...">
     </div>
     <div class="description-container info">
       <h3>Service Description</h3>
-      <input type="text" placeholder="Enter product description...">
+      <input type="text" id="service-desc-input" placeholder="Enter product description...">
     </div>
     <div class="tags-container info">
       <h3>Tags</h3>
@@ -48,11 +48,13 @@
   </section>
 
   <section class="post-container">
-    <button>Publish</button>
+    <button id="publish-btn">Publish</button>
   </section>
 
-
-
+  <script type="module">
+    import { writeToDatabase } from "./src/firebase_services.js"
+    document.querySelector("#publish-btn").addEventListener("click", writeToDatabase)
+  </script>
 </body>
 
 </html>
