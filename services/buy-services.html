@@ -22,7 +22,7 @@
   </header>
 
   <main class="buy-services-container">
-    <img src="/images/product-img.png" alt="">
+    <img src="/images/product-img.png" alt="" id="disp-img">
 
     <section class="price-btn-container">
       <div class="basic-btn-container">
@@ -47,7 +47,7 @@
         <p>Basic</p>
       </div>
       <div class="price-container">
-        <p>PHP 150</p>
+        <p id="price"></p>
       </div>
     </section>
 
@@ -57,10 +57,15 @@
   </main>
 
   <section class="buy-container">
-    <button>Buy</button>
+    <button id="buy-btn">Buy</button>
   </section>
 
-  <script src="js/buy-services.js"></script>
+  <script type="module">
+    import { readFromDatabase } from "./src/firebase_services.js"
+    readFromDatabase(localStorage.getItem("prodRef"))
+
+  </script>
+  <!-- <script src="js/buy-services.js"></script> -->
 </body>
 
 </html>
