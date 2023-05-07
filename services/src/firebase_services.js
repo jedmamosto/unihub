@@ -81,27 +81,27 @@ export function addItems() {
       const image = document.createElement("img")
       image.setAttribute("id", `service-img-${current.id}`)
       image.setAttribute("src", current.img.imgURL)
-    
+
       const descContainer = document.createElement("div")
       descContainer.setAttribute("class", "description-container")
-      
+
       const descTitle = document.createElement("div")
       descTitle.setAttribute("class", "description-title")
-    
+
       const headerTitle = document.createElement("h3")
       headerTitle.setAttribute("class", "desc-title")
       headerTitle.innerHTML = current.serviceDesc
-    
+
       const author = document.createElement("p")
       author.setAttribute("id", "author-id")
-    
+
       const priceContainer = document.createElement("div")
       priceContainer.setAttribute("class", "price")
-    
+
       const price = document.createElement("p")
       price.setAttribute("id", "price")
-      price.innerHTML = current.priceBasic
-    
+      price.innerHTML = `Starts at PHP ${current.priceBasic}`;
+
       descTitle.appendChild(headerTitle)
       descTitle.appendChild(author)
       priceContainer.appendChild(price)
@@ -109,7 +109,7 @@ export function addItems() {
       descContainer.appendChild(priceContainer)
       container.appendChild(image)
       container.appendChild(descContainer)
-      
+
       container.addEventListener('click', () => {
         localStorage.setItem("prodRef", current.id)
       })
@@ -141,7 +141,7 @@ export function readFromDatabase(id) {
   get(child(dbRef, id)).then((snapshot) => {
     const productJson = snapshot.val()
     img.src = productJson.img.imgURL
-    let priceList = [productJson.priceBasic,productJson.priceStandard,productJson.pricePremium]
+    let priceList = [productJson.priceBasic, productJson.priceStandard, productJson.pricePremium]
 
     basicBtn.addEventListener('click', () => {
       basicBtn.classList.add('box-shadow');
@@ -168,5 +168,5 @@ export function readFromDatabase(id) {
     })
 
   })
-  
+
 }
