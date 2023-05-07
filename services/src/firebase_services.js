@@ -35,19 +35,9 @@ export function writeToDatabase() {
   get(child(dbRef, `counter`)).then((snapshot) => {
     let count = Number(snapshot.val())
     count++
-    update(ref(db, `/`), { counter: count })
-    console.log("Counter updated.")
 
     const reference = ref(db, `products/${count}`)
-    set(reference, {
-      id: count,
-      serviceName: serviceName,
-      serviceDesc: serviceDesc,
-      priceBasic: priceBasic,
-      priceStandard: priceStandard,
-      pricePremium: pricePremium
-    })
-    console.log("Items written in database.")
+
 
     const fileItem = document.querySelector("#image_input").files[0]
     const metadata = {
@@ -57,9 +47,18 @@ export function writeToDatabase() {
     uploadBytes(imageRef, fileItem, metadata).then((snapshot) => {
       console.log("Uploaded image.")
       getDownloadURL(imageRef).then((url) => {
-        set(ref(db, `products/${count}/img`), {
-          imgURL: url
+        set(reference, {
+          imgURL: url,
+          id: count,
+          serviceName: serviceName,
+          serviceDesc: serviceDesc,
+          priceBasic: priceBasic,
+          priceStandard: priceStandard,
+          pricePremium: pricePremium
         })
+        console.log("Items written in database.")
+        update(ref(db, `/`), { counter: count })
+        console.log("Counter updated.")
       })
     })
   })
@@ -80,7 +79,7 @@ export function addItems() {
 
       const image = document.createElement("img")
       image.setAttribute("id", `service-img-${current.id}`)
-      image.setAttribute("src", current.img.imgURL)
+      image.setAttribute("src", current.imgURL)
 
       const descContainer = document.createElement("div")
       descContainer.setAttribute("class", "description-container")
@@ -90,7 +89,7 @@ export function addItems() {
 
       const headerTitle = document.createElement("h3")
       headerTitle.setAttribute("class", "desc-title")
-      headerTitle.innerHTML = current.serviceDesc
+      headerTitle.innerHTML = current.serviceName
 
       const author = document.createElement("p")
       author.setAttribute("id", "author-id")
@@ -122,9 +121,6 @@ export function addItems() {
 }
 
 //buy-services function
-function buyServiceUpdate(id) {
-  localStorage.setItem("prodRef", id)
-}
 
 export function readFromDatabase(id) {
   const basicBtn = document.getElementById('basic-btn');
@@ -133,15 +129,17 @@ export function readFromDatabase(id) {
   const typeContainer = document.querySelector('.type-container');
   const priceContainer = document.querySelector('.price-container');
 
+
   const img = document.querySelector("#disp-img")
-  const desc = document.querySelector("#desc-title")
+  const desc = document.querySelector("#desc")
   const price = document.querySelector("#price")
   const dbRef = ref(db, `products/`)
 
   get(child(dbRef, id)).then((snapshot) => {
     const productJson = snapshot.val()
-    img.src = productJson.img.imgURL
+    img.src = productJson.imgURL
     let priceList = [productJson.priceBasic, productJson.priceStandard, productJson.pricePremium]
+    desc.innerHTML = productJson.serviceDesc
 
     basicBtn.addEventListener('click', () => {
       basicBtn.classList.add('box-shadow');
@@ -151,7 +149,7 @@ export function readFromDatabase(id) {
       priceContainer.querySelector('p').textContent = `PHP ${priceList[0]}`;
     })
 
-    standardBtn.addEventListener('click', function () {
+    standardBtn.addEventListener('click', () => {
       basicBtn.classList.remove('box-shadow');
       standardBtn.classList.add('box-shadow');
       premiumBtn.classList.remove('box-shadow');
@@ -159,7 +157,7 @@ export function readFromDatabase(id) {
       priceContainer.querySelector('p').textContent = `PHP ${priceList[1]}`;
     })
 
-    premiumBtn.addEventListener('click', function () {
+    premiumBtn.addEventListener('click', () => {
       typeContainer.querySelector('p').textContent = 'Premium';
       priceContainer.querySelector('p').textContent = `PHP ${priceList[2]}`;
       basicBtn.classList.remove('box-shadow');
